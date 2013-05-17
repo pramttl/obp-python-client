@@ -54,8 +54,16 @@ One time usage to get OAuth Token, and generate OAuth Headers.
 Accessing the resources provided by the OBP REST API.
 The rest-client assumes that the OAuth headers are in place in the OAUTH_HEADER_OBJECT file.
 (Generated once using the previous step)
+Pass the absolute path of the resource as a command line argument.
 
 .. code-block:: bash
 
-    $ python rest-client.py
+    $ python rest-client.py <ABSOLUTE_RESOURCE_PATH>
+
+Example:
+
+.. code-block:: bash
+
+    $ python rest-client.py /banks/postbank
+
 

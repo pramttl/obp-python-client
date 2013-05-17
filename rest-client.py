@@ -9,13 +9,25 @@ API_LOCATION = 'https://socialfinance.openbankproject.com/obp/v1.1'
 OAUTH_HEADER_FILE = 'saved_oauth_header.txt'
 
 import requests
-import pickle 
+import pickle
+import sys
+
+DEFAULT = False
+
+try:
+    print "Fetching data from the following endpoint: " + sys.argv[1] + "\n"
+except IndexError:
+    print "Fetching data from the following endpoint: " + '/banks' + "\n"
+    DEFAULT = True
+
 f= open(OAUTH_HEADER_FILE, 'r') 
 oauth = pickle.load(f) 
 
-
 # Example Resource Location. (List of all the banks)
-resource_url = API_LOCATION + '/banks'
+if DEFAULT:
+    resource_url = API_LOCATION + '/banks'
+else:
+    resource_url = API_LOCATION + sys.argv[1]
 
 #TODO: Add more resource location examples.
 
