@@ -33,8 +33,13 @@ else:
 
 r = requests.get(url=resource_url, auth=oauth)
 
-#Converting the obtained content into a useful python object.
-content = json.loads(r.content)
+try:
+    #Converting the obtained content into a useful python object.
+    content = json.loads(r.content)
+    JSON_ERROR = False
+except json.decoder.JSONDecodeError:
+    JSON_ERROR = True
+    content = r.content
 
 # Printing the accessed content on the terminal.
 pprint(content)
