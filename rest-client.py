@@ -11,13 +11,15 @@ OAUTH_HEADER_FILE = 'saved_oauth_header.txt'
 import requests
 import pickle
 import sys
+import simplejson as json
+from pprint import pprint
 
 DEFAULT = False
 
 try:
     print "Fetching data from the following endpoint: " + sys.argv[1] + "\n"
 except IndexError:
-    print "Fetching data from the following endpoint: " + '/banks' + "\n"
+    print "Fetching data from the root API endpoint"
     DEFAULT = True
 
 f= open(OAUTH_HEADER_FILE, 'r') 
@@ -25,17 +27,15 @@ oauth = pickle.load(f)
 
 # Example Resource Location. (List of all the banks)
 if DEFAULT:
-    resource_url = API_LOCATION + '/banks'
+    resource_url = API_LOCATION
 else:
     resource_url = API_LOCATION + sys.argv[1]
 
-#TODO: Add more resource location examples.
-
 r = requests.get(url=resource_url, auth=oauth)
-content = r.content
+
+#Converting the obtained content into a useful python object.
+content = json.loads(r.content)
 
 # Printing the accessed content on the terminal.
-print content
+pprint(content)
 
-
-#TODO: Converting the obtained content into a useful python object.
