@@ -1,4 +1,6 @@
 *~
+*.pyc
 temp-rest-client.py
 saved_auth_header.txt
-
+temp
+temp/*

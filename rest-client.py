@@ -4,32 +4,35 @@ If Authorization is required to access a resource then the client makes use of t
 by the get_oauth_headers.py program.
 '''
 
+from settings import *
+
 #--This is the location from where a client application gets user resources from.
-API_LOCATION = 'https://socialfinance.openbankproject.com/obp/v1.1'
+API_LOCATION = 'https://demo.openbankproject.com/sandbox/obp/v1.1'
 OAUTH_HEADER_FILE = 'saved_oauth_header.txt'
+
+# These settings overwrite the defaults above.
+from settings import *
 
 import requests
 import pickle
 import sys
 import simplejson as json
 from pprint import pprint
+from urlparse import urljoin
 
 DEFAULT = False
 
 try:
-    print "Fetching data from the following endpoint: " + sys.argv[1] + "\n"
+    resource_url = API_LOCATION + sys.argv[1]
+    print "Fetching data from the following endpoint:\n"
+    print resource_url
 except IndexError:
     print "Fetching data from the root API endpoint"
-    DEFAULT = True
-
-f= open(OAUTH_HEADER_FILE, 'r') 
-oauth = pickle.load(f) 
-
-# Example Resource Location. (List of all the banks)
-if DEFAULT:
     resource_url = API_LOCATION
-else:
-    resource_url = API_LOCATION + sys.argv[1]
+
+# Loading the OAuth Header object from the file where it was saved.
+f= open(OAUTH_HEADER_FILE, 'r') 
+oauth = pickle.load(f)
 
 r = requests.get(url=resource_url, auth=oauth)
 

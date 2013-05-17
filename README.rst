@@ -13,7 +13,9 @@ OAuth_Authentication + API_Consumption
 Thus the 2 aspects involved are:
 
 [1] Getting the OAuth Token/Headers via the OBP OAuth Provider. (get-oauth-headers.py)
-[2] Using the Rest API to get data from the Open Bank Project, Social Finance Application. (rest-client.py)
+[2] Using the Rest API to get data from the Open Bank Project, Demo Application Server. (rest-client.py)
+
+All the inital settings are defined in the "settings.py" file.
 
 Getting Access Token via OBP OAuth Provider.
 ----------------------------------------------------------------------------
@@ -37,6 +39,21 @@ The installation is simple. Its just about installing the dependencies right.
     $ git clone git@github.com/pramttl/obp-python-client.git
     $ cd obp-python-client
     $ sudo pip install -r requirements.txt
+
+
+Settings
+--------
+All the configuration parameters for OAuth 1.0 authentication (get-oauth-headers.py)
+and access to REST API (rest-client.py) are defined in the settings file: "settings.py"
+Most of the settings have been done appropriately for Open Bank Project Sandbox.
+The Consumer Key and Secret needs to be set as per what you have received after
+registering your applicatin on any one of the following:
+
+> demo.openbankproject.com
+> demo.openbankproject.com/sandbox
+
+To switch from <sandbox mode> to <real mode>; in the settings.py file, 
+just omit the '/sandbox' string, for all the settings variables where you see it.
 
 
 Usage
