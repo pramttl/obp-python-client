@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 import requests
 from requests_oauthlib import OAuth1
 import pickle
+from urlparse import parse_qs
 
 OAUTH_HEADER_FILE = 'saved_oauth_header.txt'
 
@@ -21,13 +22,12 @@ from settings import *
 client_key = CONSUMER_KEY
 client_secret = CONSUMER_SECRET
 
-print "TEST ************************"
-print AUTHORIZE_URL_BASE
+print "******** GETTING OAUTH HEADERS AND DUMPING INTO TEXT FILE *************"
+#print AUTHORIZE_URL_BASE
 
 oauth = OAuth1(CONSUMER_KEY, client_secret=CONSUMER_SECRET,callback_uri=OAUTH_CALLBACK)
 r = requests.post(url=REQUEST_TOKEN_URL, auth=oauth)
 
-from urlparse import parse_qs
 credentials = parse_qs(r.content)
 oauth_token = credentials.get('oauth_token')[0]
 oauth_token_secret = credentials.get('oauth_token_secret')[0]
@@ -59,6 +59,16 @@ oauth = OAuth1(CONSUMER_KEY,
                resource_owner_key=oauth_token,
                resource_owner_secret=oauth_token_secret,
                verifier=verifier)
+
+r = requests.post(url=ACCESS_TOKEN_URL, auth=oauth)
+credentials = parse_qs(r.content)
+access_token = credentials.get('oauth_token')[0]
+token_secret = credentials.get('oauth_token_secret')[0]
+
+oauth = OAuth1(client_key,
+                   client_secret=client_secret,
+                   resource_owner_key=access_token,
+                   resource_owner_secret=token_secret)
 
 # Pickling the OAuth header object for the current user and storing it in a file.
 f = open(OAUTH_HEADER_FILE, 'w') 
