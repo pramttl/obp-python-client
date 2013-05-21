@@ -1,42 +1,42 @@
-Openbank Project OAuth & REST Client
+Open Bank Project OAuth & REST Client
 ====================================
 
-This code provides a sample OAuth 1.0 Python client, used to connect to 
-the Openbank Project API. Although examples are created specifically for 
-the Openbankproject, but the code can be suitably tweaked for any OAuth 1.0 provider.
+This code provides a sample OAuth 1.0 Python client, used to connect to
+the Open Bank Project API. Although examples are created specifically for
+the Open Bank Project OAuth provider, but the code can be suitably tweaked for any OAuth 1.0 provider.
 
-The other objective is to be able to access Openbank Data via a REST Client, that uses the OAuth Headers / Token.
+The other objective is to be able to access Open bank Data via a REST Client, that uses the OAuth protocol.
 This part of the code has been added to the REST Client explained ahead.
 
 OAuth_Authentication + API_Consumption
 
 Thus the 2 aspects involved are:
 
-[1] Getting the OAuth Token/Headers via the OBP OAuth Provider. (get-oauth-headers.py)
-[2] Using the Rest API to get data from the Open Bank Project, Demo Application Server. (rest-client.py)
+[1] Getting the OAuth access token from the OBP OAuth Provider. (get-oauth-headers.py)
+[2] Using the Rest API to get data from the Open Bank Project API, Demo Application Server. (rest-client.py)
 
-All the inital settings are defined in the "settings.py" file.
+All the initial settings are defined in the "settings.py" file.
 
-Getting Access Token via OBP OAuth Provider.
+Getting the Access Token via OBP OAuth Provider.
 ----------------------------------------------------------------------------
-This has been inllustrated in the get-oauth-headers.py
-The code gets the access token authorizes it, constructs the required OAuth Headers 
-and stores the OAuth Header object in a file. The OAuth header object will be useful to the REST Client.
+This has been illustrated in the get-oauth-headers.py
+The code manages to get the access token, to construct the required OAuth Header
+and stores the OAuth Header object in a file.
+The OAuth header object will be useful to the REST Client.
 
 
-Using a rest API to get data from an OBP Server
+Using the REST API to get data from an OBP Server
 -----------------------------------------------
-The example shows getting the list of 'banks' from using the REST API.
-The OAuth header is also passed along, useful to access protected resources.
+The rest-client.py file do GET API calls by adding the OAuth header required to access the protected resources.
 
 
 Installation
 ------------
-The installation is simple. Its just about installing the dependencies right.
+The installation is simple, its just about installing the dependencies.
 
 .. code-block:: bash
 
-    $ git clone git@github.com/pramttl/obp-python-client.git
+    $ git clone git://github.com/pramttl/obp-python-client.git
     $ cd obp-python-client
     $ sudo pip install -r requirements.txt
 
@@ -44,15 +44,15 @@ The installation is simple. Its just about installing the dependencies right.
 Settings
 --------
 All the configuration parameters for OAuth 1.0 authentication (get-oauth-headers.py)
-and access to REST API (rest-client.py) are defined in the settings file: "settings.py"
-Most of the settings have been done appropriately for Open Bank Project Sandbox.
-The Consumer Key and Secret needs to be set as per what you have received after
-registering your applicatin on any one of the following:
+and the access to the REST API (rest-client.py) are defined in the settings file: "settings.py"
+Most of the settings have been done according to the Open Bank Project Sandbox.
+The Consumer Key and Secret needs to be set as per what we have received after
+registering the application on any one of the following:
 
-> demo.openbankproject.com
-> demo.openbankproject.com/sandbox
+> https://demo.openbankproject.com/consumer-registration
+> https://demo.openbankproject.com/sandbox/consumer-registration
 
-To switch from <sandbox mode> to <real mode>; in the settings.py file, 
+To switch from <sandbox mode> to <real mode>; in the settings.py file,
 just omit the '/sandbox' string, for all the settings variables where you see it.
 
 
@@ -60,8 +60,8 @@ Usage
 -----
 
 (1)
-One time usage to get OAuth Token, and generate OAuth Headers.
-(The generated Token, Headers are pickled into a text file)
+One time usage to get the OAuth access token, and generate OAuth Headers.
+(The generated token, headers are pickled into a text file)
 
 .. code-block:: bash
 
@@ -82,5 +82,3 @@ Example:
 .. code-block:: bash
 
     $ python rest-client.py /banks/postbank
-
-
