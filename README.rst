@@ -23,11 +23,14 @@ This has been illustrated in the get-oauth-headers.py
 The code manages to get the access token, to construct the required OAuth Header
 and stores the OAuth Header object in a file.
 The OAuth header object will be useful to the REST Client.
+You may choose an automatic sandbox demo, where the browser is operated
+automatically by the code during the verification process (using selenium)
 
 
 Using the REST API to get data from an OBP Server
 -----------------------------------------------
-The rest-client.py file do GET API calls by adding the OAuth header required to access the protected resources.
+The rest-client.py file does GET API calls by adding the OAuth header required to access the protected resources.
+#TODO: It will soon allow POST, PUT, DELETE calls also.
 
 
 Installation
@@ -49,8 +52,8 @@ Most of the settings have been done according to the Open Bank Project Sandbox.
 The Consumer Key and Secret needs to be set as per what we have received after
 registering the application on any one of the following:
 
-> https://demo.openbankproject.com/consumer-registration
-> https://demo.openbankproject.com/sandbox/consumer-registration
+    >  https://demo.openbankproject.com/consumer-registration
+    >  https://demo.openbankproject.com/sandbox/consumer-registration
 
 To switch from <sandbox mode> to <real mode>; in the settings.py file,
 just omit the '/sandbox' string, for all the settings variables where you see it.

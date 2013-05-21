@@ -44,14 +44,35 @@ oauth_callback_confirmed = credentials.get('oauth_callback_confirmed')
 
 authorize_url = AUTHORIZE_URL_BASE + oauth_token
 
-print '------------------------------------------------------------------------'
-print 'Please VISIT this page to grant resource authorization:\n', authorize_url
-print '------------------------------------------------------------------------'
-print 'For Sandbox: login: joe.bloggs@example.com, password: qwerty'
-print '                                                                        '
 
-
-verifier = raw_input('Please input the verification code you see in your browser when you visit the above page:\n')
+# (Optional) For automatic opening of browser and entering Sandbox Credentials.
+#-----------------------------------------------------------------------------------
+try:
+    from selenium import webdriver
+    from selenium.webdriver.common.keys import Keys
+    print "Do you want an automatic sandbox demonstration? (y/n)"
+    answer = raw_input()
+    if answer == 'y' or answer == 'Y':
+        print "Okay!! Gotcha, opening Firefox browser and doing the required stuff for you..."
+        driver = webdriver.Firefox()
+        driver.get(authorize_url)
+        elem = driver.find_element_by_name("username")
+        elem.send_keys("joe.bloggs@example.com")
+        elem = driver.find_element_by_name("password")
+        elem.send_keys("qwerty")
+        elem.send_keys(Keys.RETURN)
+        elem = driver.find_element_by_id("verify-code")
+        verifier = elem.text
+    else:
+        raise
+#-----------------------------------------------------------------------------------
+except:
+    print '------------------------------------------------------------------------'
+    print 'Please VISIT this page to grant resource authorization:\n', authorize_url
+    print '------------------------------------------------------------------------'
+    print 'For Sandbox: login: joe.bloggs@example.com, password: qwerty'
+    print '                                                                        '
+    verifier = raw_input('Please input the verification code you see in your browser when you visit the above page:\n')
 
 # Constructing an OAuth authorization Header object for the above user.
 oauth = OAuth1(CONSUMER_KEY,

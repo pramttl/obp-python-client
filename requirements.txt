@@ -1,2 +1,5 @@
 requests
 requests-oauthlib
+
+# (Opitional, but suggested)
+selenium
